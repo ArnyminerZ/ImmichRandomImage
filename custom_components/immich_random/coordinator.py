@@ -62,7 +62,7 @@ class ImmichCoordinator(DataUpdateCoordinator):
     def force_refresh(self) -> None:
         """Flag that the next update should run regardless of interval."""
         self._force_refresh = True
-        self.async_set_updated_time(datetime.now())
+        self.hass.async_create_task(self.async_refresh())
 
     async def _async_update_data(self) -> dict[str, Any]:
         """Fetch a new random image from Immich.

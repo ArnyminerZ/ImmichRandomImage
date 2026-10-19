@@ -57,6 +57,7 @@ class ImmichRandomImageEntity(ImageEntity):
         """Initialize the entity."""
         super().__init__(hass=hass, verify_ssl=coordinator.hub.verify_ssl)
         self._coordinator = coordinator
+        self._created_at = datetime.now()
         self._config_entry = config_entry
         album_ids = coordinator.hub.album_ids
         if album_ids:
@@ -108,4 +109,4 @@ class ImmichRandomImageEntity(ImageEntity):
                 return datetime.fromisoformat(last_pulled)
             except (ValueError, TypeError):
                 pass
-        return self._coordinator.last_update_success_time
+        return self._created_at
